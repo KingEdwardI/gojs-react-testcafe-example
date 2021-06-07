@@ -7,7 +7,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
-    "test": "testcafe"
+    "test": "testcafe",
+    "cypress": "cypress open"
   },
   "keywords": [
     "react",
@@ -36,5 +37,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "cypress": "^7.4.0"
+  }
 }
