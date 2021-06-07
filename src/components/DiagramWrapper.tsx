@@ -41,12 +41,20 @@ export class DiagramWrapper extends React.Component<DiagramProps, {}> {
     if (diagram instanceof go.Diagram) {
       diagram.addDiagramListener('ChangedSelection', this.props.onDiagramEvent);
 
+      diagram.addEventListener(diagram.div as Element, 'click', (e: any) => {
+        console.log('click DOM Event', e);
+      }, false);
+
+      diagram.addEventListener(diagram.div as Element, 'dblclick', (e: any) => {
+        console.log('dblclick DOM Event', e);
+      }, false);
+
       diagram.addDiagramListener('ObjectSingleClicked', e => {
-        console.log('ObjectSingleClicked', e);
+        console.log('ObjectSingleClicked DiagramEvent', e);
       });
 
       diagram.addDiagramListener('ObjectDoubleClicked', e => {
-        console.log('ObjectDoubleClicked', e);
+        console.log('ObjectDoubleClicked DiagramEvent', e);
       });
     }
   }
