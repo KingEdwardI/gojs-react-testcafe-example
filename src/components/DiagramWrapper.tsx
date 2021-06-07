@@ -40,6 +40,14 @@ export class DiagramWrapper extends React.Component<DiagramProps, {}> {
     const diagram = this.diagramRef.current.getDiagram();
     if (diagram instanceof go.Diagram) {
       diagram.addDiagramListener('ChangedSelection', this.props.onDiagramEvent);
+
+      diagram.addDiagramListener('ObjectSingleClicked', e => {
+        console.log('ObjectSingleClicked', e);
+      });
+
+      diagram.addDiagramListener('ObjectDoubleClicked', e => {
+        console.log('ObjectDoubleClicked', e);
+      });
     }
   }
 
@@ -127,6 +135,10 @@ export class DiagramWrapper extends React.Component<DiagramProps, {}> {
 
   public render() {
     return (
+    <div
+        data-testid={'canvas'}
+        id="cvs"
+        >
       <ReactDiagram
         ref={this.diagramRef}
         divClassName='diagram-component'
@@ -137,6 +149,7 @@ export class DiagramWrapper extends React.Component<DiagramProps, {}> {
         onModelChange={this.props.onModelChange}
         skipsDiagramUpdate={this.props.skipsDiagramUpdate}
       />
+      </div>
     );
   }
 }
