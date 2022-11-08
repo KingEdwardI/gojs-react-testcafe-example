@@ -1,6 +1,6 @@
 fixture('test').page('http://localhost:3000/');
 
-test('clicking on a link', async t => {
+test.skip('clicking on a link', async t => {
 	await t.maximizeWindow()
 	await t.wait(5000);
 
@@ -13,7 +13,7 @@ test('clicking on a link', async t => {
 })
 
 
-test.skip('clicking on a node', async t => {
+test('clicking on a node', async t => {
 	await t.maximizeWindow()
 	await t.wait(5000);
 
