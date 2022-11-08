@@ -1,58 +1,47 @@
-# gojs-react-basic
+# GoJs + Testcafe double click repro project
 
-### By Northwoods Software for [GoJS 2.1](https://gojs.net)
+In June of 2021 we ran into an issue with using Testcafe and GoJs. Specifically
+that when double clicking on GoJs elements in Testcafe, the GoJs events do not
+fire, though the DOM events do. I opened an issue with GoJs [here](https://forum.nwoods.com/t/double-click-not-working-in-testcafe-tests/14654/6)
+and they were unable to provide a solution from their end. However, when using
+a different E2E framework, Cypress in this case, the double click does trigger
+the GoJs handler. This has happened in all of the browsers that I've tried,
+which includes chrome, firefox, and safari.
 
-This project provides a basic example of using GoJS in a React app.
-Check out the [Intro page on using GoJS with React](https://gojs.net/latest/intro/react.html) for more information.
+Here are the versions that were used the first time this issue came up:
 
-It makes use of the [gojs-react](https://github.com/NorthwoodsSoftware/gojs-react) package to handle some boilerplate for setting up and tearing down a Diagram component.
+- testcafe - 1.14.2
+- nodeJS - 14.16.0
+- chrome - 90
+- firefox - 88
+- safari - 14.1.1
+- macOS - 10.15.7
 
-When running the sample, try moving around nodes, editing text, relinking, undoing (Ctrl-Z), etc. within the diagram
-and you'll notice the changes are reflected in the inspector area. You'll also notice that changes
-made in the inspector are reflected in the diagram. If you use the React dev tools,
-you can inspect the React state and see it updated as changes happen.
+The issue has come up again as of November 2022, with updated versions:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-It also uses [immer](https://immerjs.github.io/immer/docs/introduction) to simplify state update operations.
+- testcafe - 2.0.1, 2.0.2
+- nodeJS - 16.17.1
+- chrome - 106, 107
+- firefox - 105
+- safari - 16.1
+- macOS - 12.6
+- gitlab-runner - 15.2.0
 
-## Installation
+## Repro Steps
 
-Start by running npm install to install all necessary dependencies.
+### Testcafe
 
-## Available Scripts
+1. Clone this repo
+2. Run `npm install`
+3. Run `npm start` in one terminal window
+4. In a new terminal window, run `npm run testcafe`
+5. Open the browser console while the test is starting (I've included timeouts to give time for this)
+6. Observe that `t.doubleClick` activates a DOM `dblclick` event, but no `ObjectDoubleClicked` event is fired from GoJs.
 
-In the project directory, you can run:
+### Cypress
 
-### `npm start`
-
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Same first 3 steps as above
+2. In a new terminal window, run `npm run cypress` - This will open the Cypress UI
+3. Select the test from the list which will open a chrome window
+4. Open the console
+5. Observe that the `ObjectDoubleClicked` event is fired as well as the `dblclick` DOM event
