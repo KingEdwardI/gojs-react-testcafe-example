@@ -32,7 +32,7 @@ The issue has come up again as of November 2022, with updated versions:
 ### Testcafe
 
 1. Clone this repo
-2. Run `npm install`
+2. Run `npm ci`
 3. Run `npm start` in one terminal window
 4. In a new terminal window, run `npm run testcafe`
 5. Open the browser console while the test is starting (I've included timeouts to give time for this)
