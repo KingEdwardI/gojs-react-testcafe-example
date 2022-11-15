@@ -1,7 +1,6 @@
 fixture('test').page('http://localhost:3000/');
 
-test.skip('clicking on a link', async t => {
-	await t.maximizeWindow()
+test('clicking on a link', async t => {
 	await t.wait(5000);
 
 	await t.doubleClick('canvas', {
@@ -9,12 +8,11 @@ test.skip('clicking on a link', async t => {
 		offsetY: 130,
 	});
 
-	await t.wait(60000)
+	await t.debug()
 })
 
 
 test('clicking on a node', async t => {
-	await t.maximizeWindow()
 	await t.wait(5000);
 
 	await t.doubleClick('canvas', {
@@ -22,5 +20,5 @@ test('clicking on a node', async t => {
 		offsetY: 72,
 	});
 
-	await t.wait(60000)
+	await t.debug()
 })
